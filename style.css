@@ -1,0 +1,811 @@
+/* --- Complaint Page Specific Styles --- */
+/* --- Global Variables and Reset --- */
+:root {
+    --primary-blue: #5eaf92; /* Primary button and link color */
+    --secondary-blue: #5eaf92; /* Used for the logo and specific icons */
+    --light-blue-bg: #f8f9fa; /* Light background color for sections */
+    --text-dark: #343a40; /* Main body text color */
+    --text-muted: #6c757d; /* Lighter text for descriptions */
+    --border-light: #e9ecef;
+    --card-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    --font-family: 'Arial', sans-serif; /* Use a common font */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: white;
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-dark);
+}
+
+/* --- Navigation Bar --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    border-bottom: 1px solid var(--border-light);
+    background-color: white;
+}
+
+.logo {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: var(--text-dark);
+    display: flex;
+    align-items: center;
+}
+
+.logo i {
+    color: var(--secondary-blue);
+    margin-right: 5px;
+}
+
+.nav-links a {
+    margin-left: 20px;
+    font-size: 0.95em;
+    color: var(--text-muted);
+    padding: 5px 0;
+    position: relative;
+}
+
+/* Style for the active link in the navbar */
+.nav-links a.active {
+    color: var(--secondary-blue);
+    font-weight: 500;
+}
+
+.nav-login-btn {
+    background-color: var(--primary-blue);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.9em;
+}
+
+/* --- General Button Styles --- */
+.btn-primary {
+    background-color: var(--primary-blue);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 4px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #5eaf92;
+}
+
+/* --- Shared Section Styling --- */
+section {
+    padding: 50px 5%;
+    text-align: center;
+}
+
+h1, h2 {
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+/* --- HOME PAGE SECTIONS --- */
+
+/* Hero Section */
+.hero-section {
+    padding-top: 80px;
+    padding-bottom: 60px;
+}
+
+.safe-confidential {
+    display: inline-block;
+    background-color: var(--light-blue-bg);
+    color: var(--secondary-blue);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 500;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-light);
+}
+
+.hero-section h1 {
+    font-size: 2.8em;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.hero-section .highlight {
+    color: var(--secondary-blue);
+}
+
+.hero-section p {
+    font-size: 1em;
+    color: var(--text-muted);
+    max-width: 650px;
+    margin: 0 auto 30px auto;
+}
+
+.hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn-secondary {
+    background-color: var(--light-blue-bg);
+    color: var(--text-dark);
+    border: 1px solid var(--border-light);
+    padding: 12px 25px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+/* How It Works & Footer Structure */
+.steps-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.step-card {
+    flex-basis: 30%;
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+}
+
+.step-card h3 {
+    margin-bottom: 5px;
+    font-size: 1.1em;
+}
+
+.step-card p {
+    font-size: 0.9em;
+    color: var(--text-muted);
+}
+
+.icon-circle {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 15px auto;
+    border-radius: 50%;
+    background-color: #e6f0ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3em;
+    color: var(--secondary-blue);
+}
+
+/* Why Choose Section */
+.why-choose-section {
+    background-color: var(--light-blue-bg);
+}
+
+.features-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    max-width: 800px;
+    margin: 30px auto 0 auto;
+    text-align: left;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.feature-icon-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #e6f0ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1em;
+    color: var(--secondary-blue);
+    flex-shrink: 0;
+}
+
+.feature-text h3 {
+    font-size: 1em;
+    margin-bottom: 2px;
+}
+
+.feature-text p {
+    font-size: 0.85em;
+    color: var(--text-muted);
+}
+
+/* Final CTA */
+.final-cta-section {
+    padding: 50px 5%;
+}
+
+.final-cta-section .btn-primary {
+    margin-top: 20px;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 30px 5%;
+    border-top: 1px solid var(--border-light);
+    background-color: white;
+}
+
+.footer-logo {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+}
+
+.footer-logo i {
+    color: var(--secondary-blue);
+    margin-right: 5px;
+}
+
+.footer p {
+    color: var(--text-muted);
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+.footer .small-text {
+    font-size: 0.8em;
+    margin-top: 15px;
+}
+
+/* --- COMPLAINT PAGE SECTIONS --- */
+
+/* Page Header and Feature Summary */
+.page-header-section {
+    padding: 50px 5% 30px;
+}
+
+.page-header-section h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.page-header-section .subtitle {
+    font-size: 1em;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+}
+
+.feature-summary {
+    display: flex;
+    justify-content: center;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 15px 0;
+}
+
+.summary-item {
+    flex-basis: 33.33%;
+    text-align: center;
+    padding: 0 10px;
+    border-right: 1px solid var(--border-light);
+}
+
+.summary-item:last-child {
+    border-right: none;
+}
+
+.summary-icon {
+    font-size: 1.3em;
+    color: var(--secondary-blue);
+    margin-bottom: 5px;
+}
+
+.summary-item p {
+    margin: 0;
+    line-height: 1.3;
+    font-size: 0.9em;
+}
+
+.summary-item strong {
+    font-weight: 500;
+}
+
+.detail-text {
+    font-size: 0.8em;
+    color: var(--text-muted);
+}
+
+/* Form Card Section */
+.form-section {
+    padding: 20px 5% 50px;
+    background-color: var(--light-blue-bg);
+}
+
+.form-card {
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.form-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.form-header i {
+    font-size: 1.2em;
+    color: var(--secondary-blue);
+}
+
+.form-header h2 {
+    font-size: 1.4em;
+    font-weight: 600;
+    margin: 0;
+}
+
+.form-intro {
+    font-size: 0.9em;
+    color: var(--text-muted);
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+/* Form Group Styling */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+}
+
+.required {
+    color: red;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    font-size: 0.95em;
+    color: var(--text-dark);
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-blue);
+    outline: none;
+}
+
+.form-group select {
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="%236c757d" d="M5 6l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+}
+
+.form-submit-btn {
+    width: 100%;
+    margin-top: 10px;
+    justify-content: center;
+}
+
+/* Emergency Note at the bottom */
+.emergency-note {
+    text-align: center;
+    padding: 20px 5%;
+    font-size: 0.9em;
+    color: var(--text-muted);
+    background-color: white;
+}
+
+/* --- Media Queries for basic responsiveness --- */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .nav-links {
+        order: 3;
+        width: 100%;
+        text-align: center;
+    }
+    .nav-links a {
+        margin: 0 10px;
+    }
+
+    .hero-section h1 {
+        font-size: 2.2em;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .steps-container {
+        flex-direction: column;
+    }
+
+    .features-container {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-item {
+        align-items: flex-start;
+    }
+
+    .summary-item {
+        padding: 0 5px;
+    }
+}
+/* --- NGO Login Page Specific Styles --- */
+
+.login-section {
+    min-height: calc(100vh - 85px); /* Full height minus header/nav */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 5%;
+    background-color: var(--light-blue-bg);
+    text-align: center;
+}
+
+.login-card {
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+}
+
+.login-icon-large {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px auto;
+    border-radius: 50%;
+    background-color: #e6f0ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8em;
+    color: var(--secondary-blue);
+}
+
+.login-card h2 {
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.login-card p {
+    font-size: 0.9em;
+    color: var(--text-muted);
+    margin-bottom: 30px;
+}
+
+.login-form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.login-form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+}
+
+.login-form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    font-size: 0.95em;
+    box-sizing: border-box;
+}
+
+.login-info-text {
+    font-size: 0.75em;
+    color: var(--text-muted);
+    margin-top: 25px;
+    line-height: 1.5;
+}
+
+.login-submit-btn {
+    width: 100%;
+    justify-content: center;
+    font-size: 1em;
+}
+/* --- NGO Dashboard Page Specific Styles --- */
+
+.dashboard-container {
+    padding: 30px 5%;
+    background-color: var(--light-blue-bg);
+}
+
+.dashboard-header {
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.dashboard-header h1 {
+    font-size: 1.8em;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.dashboard-header p {
+    color: var(--text-muted);
+    font-size: 1em;
+}
+
+/* Status Cards (Total Complaints, Pending, Under Review, Resolved) */
+.status-cards {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.status-card {
+    flex: 1;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status-info h3 {
+    font-size: 2em;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.status-info p {
+    font-size: 0.9em;
+    color: var(--text-muted);
+}
+
+.status-icon-box {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3em;
+    color: white;
+}
+
+/* Specific colors for icons */
+.icon-total { background-color: var(--secondary-blue); } /* Blue */
+.icon-pending { background-color: #22976a; } /* Yellow */
+.icon-review { background-color: #009e6f; } /* Primary Blue */
+.icon-resolved { background-color: #28a745; } /* Green */
+
+
+/* Recent Complaints Section */
+.recent-complaints-card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+}
+
+.complaint-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.complaint-header-row h3 {
+    font-size: 1.25em;
+    margin: 0;
+}
+
+.search-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.search-controls input,
+.search-controls select {
+    padding: 8px 10px;
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.search-controls input {
+    width: 250px;
+}
+
+/* Table Styling */
+.complaints-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 0.95em;
+}
+
+.complaints-table th,
+.complaints-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.complaints-table th {
+    font-weight: 600;
+    color: var(--text-dark);
+    background-color: var(--light-blue-bg);
+}
+
+.complaints-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 0.85em;
+    color: white;
+}
+
+.status-badge.pending { background-color: #f3b4b4; color: var(--text-dark); }
+.status-badge.under-review { background-color:#009e6f;color: var(--text-dark); }
+.status-badge.resolved { background-color: #b2ec70; }
+
+/* Action Icon */
+.action-icon i {
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 1.1em;
+}
+
+.table-footer-info {
+    font-size: 0.9em;
+    color: var(--text-muted);
+    margin-top: 15px;
+    text-align: left;
+}
+
+/* Adjustments for responsiveness */
+@media (max-width: 992px) {
+    .status-cards {
+        flex-wrap: wrap;
+    }
+    .status-card {
+        flex-basis: calc(50% - 10px);
+    }
+    .search-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    .search-controls input {
+        width: 100%;
+    }
+    .complaints-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    .complaints-table thead, .complaints-table tbody, .complaints-table tr, .complaints-table th, .complaints-table td {
+        display: block;
+    }
+    /* Simple approach for mobile table visibility */
+}
+/* --- Success Page Specific Styles --- */
+
+.success-container {
+    padding: 50px 5%;
+    background-color: var(--light-blue-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 85px); /* Full height minus header/nav */
+    text-align: center;
+}
+
+.success-card {
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+}
+
+.success-icon-box {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px auto;
+    border-radius: 50%;
+    background-color: #d4edda; /* Light green background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.2em;
+    color: #28a745; /* Dark green icon color */
+}
+
+.success-card h2 {
+    font-size: 1.6em;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.success-card p {
+    font-size: 1em;
+    color: var(--text-dark);
+    line-height: 1.5;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.submit-again-link {
+    font-size: 1em;
+    font-weight: 500;
+    color: var(--primary-blue);
+    text-decoration: underline;
+}
+
+.submit-again-link:hover {
+    color: #0056b3;
+}
