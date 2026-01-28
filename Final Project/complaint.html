@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeVoice - File a Complaint</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <i class="fas fa-shield-alt" style="color: #4a90e2;"></i> SafeVoice
+        </div>
+        <nav class="nav-links">
+            <a href="home.html">Home</a>
+            <a href="complaint.html" style="color: #4a90e2; font-weight: bold;">File Complaint</a>
+            <a href="login.html">NGO Portal</a>
+        </nav>
+        <button class="nav-login-btn" onclick="location.href='login.html'">NGO Login</button>
+    </header>
+
+    <main>
+        <section class="page-header-section">
+            <h1>Report Harassment Safely</h1>
+            <p class="subtitle">Your voice matters. Submit your complaint confidentially and our NGO partners will
+                review and take action to help you seek justice.</p>
+
+            <div class="feature-summary">
+                <div class="summary-item">
+                    <div class="summary-icon"><i class="fas fa-user-shield"></i></div>
+                    <p><strong>Confidential</strong></p>
+                    <p class="detail-text">Your identity is protected.</p>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-icon"><i class="fas fa-lock"></i></div>
+                    <p><strong>Secure</strong></p>
+                    <p class="detail-text">Data is encrypted</p>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-icon"><i class="fas fa-headset"></i></div>
+                    <p><strong>Support</strong></p>
+                    <p class="detail-text">We'll contact you</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="form-section">
+            <div class="form-card">
+                <div class="form-header">
+                    <i class="fas fa-file-alt"></i>
+                    <h2>File a Complaint</h2>
+                </div>
+                <p class="form-intro">Your information is kept confidential. Please provide accurate details to help us
+                    investigate.</p>
+
+                <form id="complaintForm">
+                    <div class="form-group">
+                        <label for="cnic">CNIC Number <span class="required">*</span></label>
+                        <input type="text" id="cnic" placeholder="XXXXX-XXXXXXX-X" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number <span class="required">*</span></label>
+                        <input type="tel" id="phone" placeholder="03XX-XXXXXXX" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="area">Area of Harassment <span class="required">*</span></label>
+                        <select id="area" required>
+                            <option value="" disabled selected>Select the area where incident occurred</option>
+                            <option value="F-6">F-6</option>
+                            <option value="F-7">F-7</option>
+                            <option value="F-8">F-8</option>
+                            <option value="F-9">F-9</option>
+                            <option value="F-10">F-10</option>
+                            <option value="F-11">F-11</option>
+                            <option value="E-8">E-8</option>
+                            <option value="E-9">E-9</option>
+                            <option value="E-10">E-10</option>
+                            <option value="E-11">E-11</option>
+                            <option value="I-8">I-8</option>
+                            <option value="I-9">I-9</option>
+                            <option value="I-10">I-10</option>
+                            <option value="I-11">I-11</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="type">Type of Harassment <span class="required">*</span></label>
+                        <select id="type" required>
+                            <option value="" disabled selected>Select the type of harassment</option>
+                            <option value="Physical Assault">Physical Assault</option>
+                            <option value="Stalking">Stalking</option>
+                            <option value="Verbal Abuse">Verbal Abuse</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description of Incident <span class="required">*</span></label>
+                        <textarea id="description" rows="5"
+                            placeholder="Please describe what happened in detail. Include dates, times, and any witnesses if possible."
+                            required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary form-submit-btn">Submit Complaint</button>
+                    <p id="message" style="margin-top: 10px; color: green; display: none;"></p>
+                    <p id="error" style="margin-top: 10px; color: red; display: none;"></p>
+                </form>
+
+                <script>
+                    document.getElementById('complaintForm').addEventListener('submit', async function (e) {
+                        e.preventDefault();
+
+                        const data = {
+                            cnic: document.getElementById('cnic').value,
+                            phone: document.getElementById('phone').value,
+                            area: document.getElementById('area').value,
+                            type: document.getElementById('type').value,
+                            description: document.getElementById('description').value
+                        };
+
+                        try {
+                            const response = await fetch('http://localhost:8080/api/submit', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(data)
+                            });
+
+                            if (response.ok) {
+                                window.location.href = 'submitted.html';
+                            } else {
+                                document.getElementById('error').textContent = "Error submitting complaint. Please try again.";
+                                document.getElementById('error').style.display = 'block';
+                            }
+                        } catch (err) {
+                            console.error(err);
+                            document.getElementById('error').textContent = "Cannot connect to server. Is the backend running?";
+                            document.getElementById('error').style.display = 'block';
+                        }
+                    });
+                </script>
+
+            </div>
+        </section>
+    </main>
+
+    <div class="emergency-note">
+        In case of emergency, please contact local authorities immediately.
+    </div>
+
+</body>
+
+</html>

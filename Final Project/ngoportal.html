@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeVoice - NGO Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <i class="fas fa-shield-alt"></i> SafeVoice
+        </div>
+        <nav class="nav-links">
+            <a href="home.html">Home</a>
+            <a href="complaint.html">File Complaint</a>
+            <a href="login.html" class="active">NGO Portal</a>
+        </nav>
+        <button class="nav-login-btn" onclick="location.href='login.html'">Logout</button>
+    </header>
+
+    <main class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>Dashboard</h1>
+            <p>Manage and review harassment complaints</p>
+        </div>
+
+        <div class="status-cards">
+            <div class="status-card">
+                <div class="status-info">
+                    <h3>5</h3>
+                    <p>Total Complaints</p>
+                    <p class="text-muted" style="font-size: 0.8em; margin-top: 5px;">All time submissions</p>
+                </div>
+                <div class="status-icon-box icon-total">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+            </div>
+
+            <div class="status-card">
+                <div class="status-info">
+                    <h3>2</h3>
+                    <p>Pending Review</p>
+                    <p class="text-muted" style="font-size: 0.8em; margin-top: 5px;">Awaiting initial review</p>
+                </div>
+                <div class="status-icon-box icon-pending">
+                    <i class="fas fa-clock"></i>
+                </div>
+            </div>
+
+            <div class="status-card">
+                <div class="status-info">
+                    <h3>2</h3>
+                    <p>Under Review</p>
+                    <p class="text-muted" style="font-size: 0.8em; margin-top: 5px;">Currently investigating</p>
+                </div>
+                <div class="status-icon-box icon-review">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+
+            <div class="status-card">
+                <div class="status-info">
+                    <h3>1</h3>
+                    <p>Resolved</p>
+                    <p class="text-muted" style="font-size: 0.8em; margin-top: 5px;">Cases closed</p>
+                </div>
+                <div class="status-icon-box icon-resolved">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="recent-complaints-card">
+            <div class="complaint-header-row">
+                <div>
+                    <h3>Recent Complaints</h3>
+                    <p class="text-muted" style="font-size: 0.9em;">View and manage all submitted harassment complaints
+                    </p>
+                </div>
+                <div class="search-controls">
+                    <input type="text" id="searchInput" placeholder="Search by CNIC, phone, or area...">
+                </div>
+            </div>
+
+            <table class="complaints-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>CNIC</th>
+                        <th>Phone</th>
+                        <th>Area</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="complaintTableBody">
+                    <!-- Loaded dynamically -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Red Zone Section -->
+        <div class="recent-complaints-card" style="margin-top: 20px;">
+            <h3>Red Zones (Hotspots)</h3>
+            <ul id="redZoneList" style="list-style: none; padding: 0;"></ul>
+        </div>
+
+    </main>
+
+    <script>
+        async function loadDashboard() {
+            try {
+                const response = await fetch('http://localhost:8080/api/dashboard');
+                const data = await response.json();
+
+                // Update Stats
+                document.querySelector('.icon-total').previousElementSibling.querySelector('h3').textContent = data.total_complaints;
+                document.querySelector('.icon-resolved').previousElementSibling.querySelector('h3').textContent = data.completed_count;
+
+                // Red Zones
+                const rzList = document.getElementById('redZoneList');
+                rzList.innerHTML = '';
+                if (data.red_zones.length === 0) {
+                    rzList.innerHTML = '<li>No areas currently in Red Zone.</li>';
+                } else {
+                    data.red_zones.forEach(z => {
+                        const li = document.createElement('li');
+                        li.style.color = 'red';
+                        li.style.fontWeight = 'bold';
+                        li.textContent = `⚠️ ${z.name}: ${z.count} Complaints`;
+                        rzList.appendChild(li);
+                    });
+                }
+
+                // Table
+                const tbody = document.getElementById('complaintTableBody');
+                tbody.innerHTML = '';
+
+                // Use priority_queue to show complaints sorted by severity (Physical Assault > Stalking > Verbal Abuse)
+                const all = data.priority_queue;
+
+                all.forEach(c => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${c.id}</td>
+                        <td>${c.cnic}</td>
+                        <td>${c.phone}</td>
+                        <td>${c.area}</td>
+                        <td>${c.type}</td>
+                        <td>
+                            <select id="status-${c.id}" value="${c.status}" style="padding: 5px; cursor: pointer;">
+                                <option value="Pending" ${c.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                                <option value="Verified" ${c.status === 'Verified' ? 'selected' : ''}>Verified</option>
+                                <option value="Completed" ${c.status === 'Completed' ? 'selected' : ''}>Completed</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button onclick="updateStatus('${c.id}')" style="cursor:pointer; background:none; border:none; color:blue; padding: 5px; margin-right: 10px;"><i class="fas fa-save"></i></button>
+                            ${c.status !== 'Completed' ? `<button onclick="markComplete('${c.id}')" style="cursor:pointer; background:none; border:none; color:green;"><i class="fas fa-check"></i></button>` : '<i class="fas fa-check-circle" style="color:gray;"></i>'}
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+            } catch (e) {
+                console.error("Failed to load dashboard data", e);
+            }
+        }
+
+        async function markComplete(id) {
+            if (!confirm('Mark complaint ' + id + ' as completed?')) return;
+            await fetch('http://localhost:8080/api/complete', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: parseInt(id) })
+            });
+            loadDashboard(); // Refresh
+        }
+
+        async function updateStatus(id) {
+            const selectElement = document.getElementById('status-' + id);
+            const newStatus = selectElement.value;
+            try {
+                const response = await fetch('http://localhost:8080/api/update-status', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: parseInt(id), status: newStatus })
+                });
+                const data = await response.json();
+                if (data.status === 'success') {
+                    alert('Status updated successfully!');
+                    loadDashboard(); // Refresh
+                } else {
+                    alert('Error updating status: ' + data.message);
+                }
+            } catch (e) {
+                alert('Failed to update status: ' + e.message);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadDashboard);
+    </script>
+
+    </main>
+
+</body>
+
+</html>
